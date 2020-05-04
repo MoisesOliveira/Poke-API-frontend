@@ -2,8 +2,20 @@ operations = {
     method: 'get',
     mode: 'cors'
 }
+let offset = 0;
+let url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`;
+let nextButton = document.getElementById('nextPage');
+nextButton.addEventListener('click', ()=>{
+    url = `https://pokeapi.co/api/v2/pokemon?offset=${offset+20}&limit=20`;
+    console.log(url);
+    getData();
+    return url;
+    
+});
+
+
 getData = () =>{
-    fetch("https://pokeapi.co/api/v2/pokemon",operations).
+    fetch(url,operations).
     then( (res) => res.json()
     .then(data => showData(data)))
 
@@ -17,7 +29,7 @@ getData = () =>{
         fetch(`https://pokeapi.co/api/v2/pokemon/${name}`,operations).
     then( (res) => res.json()
     .then(data => {
-        console.log(data.sprites.back_default);
+        console.log(data.sprites.front_default);
         let div = document.getElementById('div1');
         let divPoke = document.createElement('div');
         let h1Name = document.createElement('h2');
@@ -29,7 +41,7 @@ getData = () =>{
         divPoke.id = 'divPoke';
         h1Name.innerHTML = data.name;
         let img = document.createElement('img');
-        img.src = data.sprites.back_default;
+        img.src = data.sprites.front_default;
         div.appendChild(divPoke);
         divPoke.appendChild(img);
         divPoke.appendChild(h1Name);
