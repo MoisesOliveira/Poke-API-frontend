@@ -5,16 +5,50 @@ operations = {
 let offset = 0;
 let url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`;
 let nextButton = document.getElementById('nextPage');
+let searchInp;
+let search = document.getElementById('searchBtn');
+let popup = document.getElementById('popup');
+let overlay = document.getElementById('overlay');
+
+search.addEventListener('click',()=>{
+    searchInp = document.getElementById('inpSearch').value;
+    fetch(`https://pokeapi.co/api/v2/pokemon/${searchInp}`,operations).
+    then( (res) => res.json()
+    .then(data => {
+            let pokeImg = document.getElementById('imgPoke');
+            pokeImg.src = data.sprites.front_default;
+            let pokeName = document.getElementById('pokeName');
+            pokeName.innerHTML = data.name;
+            let pokeHP = document.getElementById('pokeHP');
+            pokeHP.innerHTML = `HP: ${data.stats[5].base_stat}`;
+            let pokeType = document.getElementById('pokeType');
+            pokeType.innerHTML = `Type: ${data.types[0].type.name}`;
+            let popup = document.getElementById('popup');
+            let overlay = document.getElementById('overlay');
+            popup.style.display = 'block';
+            popup.style.visibility = 'visible';
+            console.log('showing');
+            overlay.style.opacity = 0.5;
+            overlay.style.pointerEvents = 'all';
+            }
+            )
+        )
+    }
+)
+
+overlay.addEventListener('click',()=>{
+    popup.style.visibility = 'hidden';
+    overlay.style.opacity = 1;
+})
+
 nextButton.addEventListener('click', ()=>{
-    url = `https://pokeapi.co/api/v2/pokemon?offset=${offset+20}&limit=20`;
-    console.log(url);
-    getData();
-    return url;
-    
+    offset=offset+20;
+    url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`;
+    getData(url);
 });
 
 
-getData = () =>{
+let getData = (url) =>{
     fetch(url,operations).
     then( (res) => res.json()
     .then(data => showData(data)))
@@ -22,16 +56,18 @@ getData = () =>{
     showData = (result) =>{
            for(const fields in result.results){
                let pokeName = result.results[fields].name;
-               showStatus(pokeName);
+               showStats(pokeName);
             }
-        }
-    showStatus = (name) =>{
+        } 
+    }
+const showStats = (name) =>{
         fetch(`https://pokeapi.co/api/v2/pokemon/${name}`,operations).
     then( (res) => res.json()
     .then(data => {
-        console.log(data.sprites.front_default);
+        //console.log(data.sprites.front_default);
         let div = document.getElementById('div1');
         let divPoke = document.createElement('div');
+        divPoke.className = 'row';
         let h1Name = document.createElement('h2');
         let h2HP = document.createElement('h2');
         let h2Type = document.createElement('h2');
@@ -49,7 +85,7 @@ getData = () =>{
         divPoke.appendChild(h2Type);
     }))
     
-    } 
     }
 
-getData();
+getData(url);
+

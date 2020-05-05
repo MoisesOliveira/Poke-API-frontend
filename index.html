@@ -8,10 +8,24 @@
 </head>
 
 <body>
-<h1>Pokedex API Project</h1>
-<div id="div1"></div>
+<div id="overlay">
+<h1 id="title">Pokedex API Project</h1>
+<div id="searchDiv">
+<input type="search" id="inpSearch" onkey="searchPoke()">
+<button id="searchBtn">Search</button>
+</div>
+<div id="div1" className="row"></div>
+
 
 <button id="nextPage">Next</button>
+</div>
+<div id="popup">
+    <img id="imgPoke">
+    <h1 id="pokeName"></h1>
+    <h1 id="pokeHP"></h1>
+    <h1 id="pokeType"></h1>
+</div>
+
 <script src="FetchAPI.js"></script>    
 </body>
 
