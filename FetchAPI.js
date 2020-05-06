@@ -15,14 +15,16 @@ search.addEventListener('click',()=>{
     fetch(`https://pokeapi.co/api/v2/pokemon/${searchInp}`,operations).
     then( (res) => res.json()
     .then(data => {
-            let pokeImg = document.getElementById('imgPoke');
-            pokeImg.src = data.sprites.front_default;
-            let pokeName = document.getElementById('pokeName');
-            pokeName.innerHTML = data.name;
-            let pokeHP = document.getElementById('pokeHP');
-            pokeHP.innerHTML = `HP: ${data.stats[5].base_stat}`;
-            let pokeType = document.getElementById('pokeType');
-            pokeType.innerHTML = `Type: ${data.types[0].type.name}`;
+            let htmlElements = {
+                pokeName : document.getElementById('pokeName'),
+                pokeImg : document.getElementById('imgPoke'),
+                pokeHP : document.getElementById('pokeHP'),
+                pokeType : document.getElementById('pokeType')
+            }
+            htmlElements.pokeImg.src = data.sprites.front_default;
+            htmlElements.pokeName.innerHTML = data.name;
+            htmlElements.pokeHP.innerHTML = `HP: ${data.stats[5].base_stat}`;
+            htmlElements.pokeType.innerHTML = `Type: ${data.types[0].type.name}`;
             let popup = document.getElementById('popup');
             let overlay = document.getElementById('overlay');
             popup.style.display = 'block';
@@ -30,6 +32,8 @@ search.addEventListener('click',()=>{
             console.log('showing');
             overlay.style.opacity = 0.5;
             overlay.style.pointerEvents = 'all';
+
+            
             }
             )
         )
@@ -67,10 +71,12 @@ const showStats = (name) =>{
         //console.log(data.sprites.front_default);
         let div = document.getElementById('div1');
         let divPoke = document.createElement('div');
-        divPoke.className = 'row';
         let h1Name = document.createElement('h2');
         let h2HP = document.createElement('h2');
         let h2Type = document.createElement('h2');
+        let h2 = document.createElement('h2');
+        let br = document.createElement('br');
+        h2.innerHTML = 'h2 element';
         h2Type.innerHTML = `Type: ${data.types[0].type.name}`;
         h2HP.innerHTML = `HP: ${data.stats[5].base_stat}`;
         h1Name.id = 'h1Name';
@@ -81,6 +87,7 @@ const showStats = (name) =>{
         div.appendChild(divPoke);
         divPoke.appendChild(img);
         divPoke.appendChild(h1Name);
+        divPoke.appendChild(br);
         divPoke.appendChild(h2HP);
         divPoke.appendChild(h2Type);
     }))

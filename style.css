@@ -7,6 +7,9 @@ body{
 h1{
     color: whitesmoke;
 }
+#div1{
+    
+}
 #title{
     color: whitesmoke;
     text-align: left;
@@ -18,30 +21,28 @@ h1{
 }
 #divPoke{
     border-style: solid;
-    margin-block: 100px 500px 20px;
-    padding-bottom: 100px;
+    margin-block: 20px 20px 20px;
+    padding: 50px 50px 100px;
     background-color: #ce4e4c;
-    max-width: 500px;
-    max-height: 500px;
-    align-self: center;
+    max-width: 300px;
+    max-height: 300px;
     margin: auto;
-    text-align:center;
+    display: inline-flex;
+    
 }
 
 #divPoke img{
     background-color: #c75856 ;
     border: 0px solid whitesmoke;
-    width: 30%;
-}
-
-#h1Name{
-    color: rgb(230, 230, 230);
-    text-transform: capitalize;
 }
 
 #divPoke h2{
     color: rgb(230, 230, 230);
-    font-size: 30px;
+    font-size: 20px;
+}
+#h1Name{
+    color: rgb(185, 127, 127);
+    text-transform: capitalize;
 }
 
 input{
